@@ -23,8 +23,8 @@
     .calculator-container {
         display: flex;
         justify-content: center;
-        max-width: 300px;
-        width: 100%;
+        max-width: 400px;
+        width: 200%;
     }
 
     .calculator-card {
@@ -34,7 +34,7 @@
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
         background-color: #ffffff;
         width: 100%;
-        height: 500px;
+        height: 600px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -146,13 +146,23 @@
     }
 </style>
 
+<!-- Inclure le lien vers Font Awesome pour utiliser les icônes -->
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<!-- Inclure le lien vers Font Awesome pour utiliser les icônes -->
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
 <div class="calculator-container">
     <div class="calculator-card">
         <h1>Calculatrice</h1>
         <form action="{{route('calculate')}}" method="post">
             @csrf
             <input type="text" name="num1" placeholder="Entrer un nombre" required value="{{ isset($num1) ? $num1 : '' }}">
-            <div id="selected-operator">{{isset($operator)? ' '.$operator: ''}}</div>
+            <div id="selected-operator">{{ isset($operator) ? ' ' . $operator : '' }}</div>
             <input type="text" name="num2" placeholder="Entrer le second nombre" required value="{{ isset($num2) ? $num2 : '' }}">
             <input type="hidden" name="operator" id="operator" value="">
             <div class="buttons-grid">
@@ -160,6 +170,21 @@
                 <button type="button" onclick="setOperator('-')">-</button>
                 <button type="button" onclick="setOperator('*')">*</button>
                 <button type="button" onclick="setOperator('/')">/</button>
+                <!-- Icônes pour les opérations trigonométriques -->
+                <button type="button" onclick="setOperator('sin')">
+                    <i class="fas fa-sine"></i> Sinus
+                </button>
+                <button type="button" onclick="setOperator('cos')">
+                    <i class="fas fa-cosine"></i> Cosinus
+                </button>
+                <button type="button" onclick="setOperator('tan')">
+                    <i class="fas fa-tangent"></i> Tangente
+                </button>
+                <!-- Icônes pour racine carrée et carré -->
+                <button type="button" onclick="setOperator('sqrt')">√</button> <!-- Racine carrée -->
+                <button type="button" onclick="setOperator('square')">x²</button> <!-- Carré -->
+                <!-- Ajout de Pi -->
+                <button type="button" onclick="setOperator('pi')">π</button> <!-- Pi -->
                 <button type="button" class="buttonr" onclick="submitForm()">Calculer</button>
             </div>
         </form>
@@ -170,6 +195,10 @@
         @endif
     </div>
 </div>
+
+
+
+
 
 
 <script>
