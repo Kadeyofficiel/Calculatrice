@@ -17,22 +17,31 @@ class CalculatriceController extends Controller
         $num2 = $request->input('num2');
         $operator = $request->input('operator');
 
-        switch ($operator) {
-            case '+':
-                $result = $num1 + $num2;
-                break;
-            case '-':
-                $result = $num1 - $num2;
-                break;
-            case '*':
-                $result = $num1 * $num2;
-                break;
-            case '/':
-                $result = $num1 / $num2;
-                break;
-            default:
-                $result = 'Invalid Operator';
+        // Vérifier si les valeurs sont des numéros
+        if (!is_numeric($num1) || !is_numeric($num2)) {
+            $result = 'Il faut taper que des réels';
+        } elseif ($operator === '/' && $num2 == 0) {
+            $result = 'Division par zéro => Erreur';
+        } else {
+            switch ($operator) {
+                case '+':
+                    $result = $num1 + $num2;
+                    break;
+                case '-':
+                    $result = $num1 - $num2;
+                    break;
+                case '*':
+                    $result = $num1 * $num2;
+                    break;
+                case '/':
+                    $result = $num1 / $num2;
+                    break;
+                default:
+                    $result = 'Opérateur non valide';
+                    break;
+            }
         }
+
         return view('calculator', ['result' => $result, 'num1' => $num1, 'num2' => $num2, 'operator' => $operator]);
     }
 }
